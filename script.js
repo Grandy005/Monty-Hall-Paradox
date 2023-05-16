@@ -84,8 +84,6 @@ async function openDoor() {
 
     button.style.visibility = 'hidden';
 
-    console.log(chosenDoor);
-
     let drumRoll = document.getElementById('drumRoll');
     let applause = document.getElementById('applause');
     let trombone = document.getElementById('trombone');
