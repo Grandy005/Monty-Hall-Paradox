@@ -31,6 +31,18 @@ i:hover {
     cursor: pointer;
 }
 
+table {
+    max-width: 55%;
+}
+
+table caption {
+    font-size: x-large;
+}
+
+table.column {
+    max-height: 100%;
+}
+
 h2 {
     text-align: center;
     color: #D90368;
@@ -66,4 +78,12 @@ button {
 button:hover {
     cursor: pointer;
     background-color: #d3c6af;
+}
+
+.charts-css.column.reverse tbody tr,.charts-css.column:not(.reverse) tbody tr td {
+    align-items: flex-end !important;
+}
+
+.charts-css.show-heading {
+    --heading-size: 2.5rem !important;
 }

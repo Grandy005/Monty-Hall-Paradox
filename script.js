@@ -1,3 +1,60 @@
+let icon = document.querySelector('i');
+icon.style.display = 'none';
+
+function updateStats() {
+    let winCounter = Number(localStorage.getItem('Nyert'));
+    let loseCounter = Number(localStorage.getItem('Vesztett'));
+    let changedWinCounter = Number(localStorage.getItem('Változtatással Nyert'));
+    let changedLoseCounter = Number(localStorage.getItem('Változtatással Vesztett'));
+
+    let total = winCounter + loseCounter + changedWinCounter + changedLoseCounter;
+    let winColumn = document.getElementById("win");
+    let loseColumn = document.getElementById("lose");
+    let changedWinColumn = document.getElementById("changedWin");
+    let changedLoseColumn = document.getElementById("changedLose");
+
+    winColumn.innerText = `${winCounter}`;
+    winColumn.style = `--size: calc(${winCounter}/${total});`;
+    loseColumn.innerText = `${loseCounter}`;
+    loseColumn.style = `--size: calc(${loseCounter}/${total});`;
+    changedWinColumn.innerText = `${changedWinCounter}`;
+    changedWinColumn.style = `--size: calc(${changedWinCounter}/${total});`
+    changedLoseColumn.innerText = `${changedLoseCounter}`;
+    changedLoseColumn.style = `--size: calc(${changedLoseCounter}/${total});`
+
+    if (total > 0) icon.style.display = 'unset';
+}
+
+let faszFlag = true;
+let table = document.querySelector('table');
+table.style.display = 'none';
+
+icon.addEventListener('click', () => {
+    icon.addEventListener('mouseover', xMark);
+    icon.addEventListener('mouseleave', chartSimple);
+
+    function xMark(event) {
+        if (!faszFlag) {
+            event.target.classList = 'fa-solid fa-xmark fa-2x';
+        }
+    };
+
+    function chartSimple(event) {
+        event.target.classList = 'fa-solid fa-chart-simple fa-2x';
+    };
+
+    if (faszFlag) {
+        table.style.display = 'unset';   
+        faszFlag = false;
+    }
+    
+    else if (!faszFlag) {
+        table.style.display = 'none';
+        faszFlag = true;
+    }
+});
+
+
 let button = document.querySelector('button');
 
 let doors = Array.from(document.getElementsByTagName('img'));
@@ -142,6 +199,7 @@ async function openDoor() {
                         localStorage.setItem('Total', `${winCounter + loseCounter + changedWinCounter + changedLoseCounter + 1}`)
                         isFired = true;
                         button.style.visibility = 'unset';
+                        updateStats();
                         button.addEventListener('click', () => {
                             location.reload();
                         })
@@ -155,3 +213,5 @@ async function openDoor() {
 fillStores();
 
 openDoor();
+
+updateStats();
